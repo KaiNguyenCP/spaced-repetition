@@ -1,0 +1,65 @@
+@host = http://localhost:3000
+@api = {{host}}/api
+@projects = {{api}}/projects
+@json = application/json
+@projectId = 
+############################################
+### PROJECT API
+############################################
+
+### Create a project api
+POST {{projects}} HTTP/1.1
+Content-Type: {{json}}
+
+{
+   "name":"Test"
+}
+
+### update a project api
+PATCH {{projects}}/{{projectId}} HTTP/1.1
+Content-Type: {{json}}
+
+{
+   "name":"Project"
+}
+
+### Get all projects api
+GET {{projects}}?page=1&size=5 HTTP/1.1
+
+### Get project by Id api
+GET {{projects}}/{{projectId}} HTTP/1.1
+
+### Delete project by Id api
+DELETE {{projects}}/{{projectId}} HTTP/1.1
+
+### Create a project api
+POST {{projects}}/bulk HTTP/1.1
+Content-Type: {{json}}
+
+{
+   "projects":[
+      {
+         "name": "Test"
+      },
+      {
+         "name": "Test"
+      },
+      {
+         "name": "Test"
+      },
+      {
+         "name": "Test4"
+      },
+      {
+         "name": "Test5"
+      }
+   ]
+}
+
+### Delete project bulk
+DELETE {{projects}}/bulk HTTP/1.1
+Content-Type: {{json}}
+
+{
+  "ids": []
+}
