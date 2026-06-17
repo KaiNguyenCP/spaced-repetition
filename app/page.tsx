@@ -1,4 +1,4 @@
-import { HomeClient } from "./_components/HomeClient";
+import { HomeClient } from "../components/HomeClient";
 import { DeckRepo } from "@/repos/deck.impl";
 
 export default async function HomePage() {

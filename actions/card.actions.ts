@@ -1,3 +1,4 @@
+"use server";
 import { CardRepo } from "@/repos/card.impl";
 import { implementReview } from "@/services/card.service";
 import {
@@ -7,7 +8,7 @@ import {
 } from "@/types/card";
 import { revalidatePath } from "next/cache";
 import { Grade } from "ts-fsrs";
-import { Card } from "../generated/prisma/client";
+import { Card } from "@/app/generated/prisma/client";
 
 export async function createCardAction(deckId: string, formData: FormData) {
   const raw = {

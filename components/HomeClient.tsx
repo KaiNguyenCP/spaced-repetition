@@ -2,8 +2,8 @@
 
 import { useState, useTransition } from "react";
 import Link from "next/link";
-import { createDeckAction, deleteDeckAction } from "@/app/actions/deck.actions";
-import { Deck } from "../generated/prisma/client";
+import { createDeckAction, deleteDeckAction } from "@/actions/deck.actions";
+import { Deck } from "../app/generated/prisma/client";
 
 export interface CardCount {
   totalCards: number;

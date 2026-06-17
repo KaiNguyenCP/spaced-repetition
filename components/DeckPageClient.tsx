@@ -6,8 +6,8 @@ import {
   createCardAction,
   updateCardAction,
   deleteCardAction,
-} from "@/app/actions/card.actions";
-import { Card, Deck } from "../generated/prisma/client";
+} from "@/actions/card.actions";
+import { Card, Deck } from "../app/generated/prisma/client";
 
 type Props = {
   deck: Deck;
