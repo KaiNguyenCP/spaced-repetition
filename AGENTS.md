@@ -11,4 +11,5 @@ https://open-spaced-repetition.github.io/ts-fsrs/example
 https://nextjs.org/docs/14/app/building-your-application/data-fetching/patterns
 https://dev.to/sizan_mahmud0_e7c3fd0cb68/nextjs-clean-code-best-practices-for-scalable-applications-2jmc
 https://www.figma.com/community/file/1007652386132205250/memo-ui-kit-community
+https://www.svgrepo.com/
 
