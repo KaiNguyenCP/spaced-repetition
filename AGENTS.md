@@ -8,4 +8,6 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 https://open-spaced-repetition.github.io/ts-fsrs/
 https://open-spaced-repetition.github.io/ts-fsrs/example
+https://nextjs.org/docs/14/app/building-your-application/data-fetching/patterns
+https://dev.to/sizan_mahmud0_e7c3fd0cb68/nextjs-clean-code-best-practices-for-scalable-applications-2jmc
 

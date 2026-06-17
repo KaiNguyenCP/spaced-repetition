@@ -1,0 +1,33 @@
+@host = http://localhost:3000
+@api = {{host}}/api
+@decks = {{api}}/decks
+@json = application/json
+@deckId = 
+############################################
+### DECK API
+############################################
+
+### Create a deck api
+POST {{decks}} HTTP/1.1
+Content-Type: {{json}}
+
+{
+   "title":"Test"
+}
+
+### update a deck api
+PATCH {{decks}}/{{deckId}} HTTP/1.1
+Content-Type: {{json}}
+
+{
+   "title":"deck"
+}
+
+### Get all decks api
+GET {{decks}}?page=1&size=5 HTTP/1.1
+
+### Get deck by Id api
+GET {{decks}}/{{deckId}} HTTP/1.1
+
+### Delete deck by Id api
+DELETE {{decks}}/{{deckId}} HTTP/1.1

@@ -10,21 +10,65 @@ export const DeckRepo = {
       modelName: "deck",
       pageNumber: page,
       pageSize: size,
-      select: {
-        _count: true,
-        cards: { where: { nextReview: { lte: new Date() } } },
+      include: {
+        _count: {
+          select: {
+            cards: true,
+          },
+        },
+        cards: {
+          where: { nextReview: { lte: new Date() } },
+          select: { id: true },
+        },
       },
     });
+
+    const formattedContent = [];
+    for (const deck of decks.content) {
+      const dueCount = deck.cards.length;
+      const totalCards = deck._count.cards;
+      delete deck.cards;
+
+      formattedContent.push({
+        ...deck,
+        _count: {
+          totalCards,
+          dueCards: dueCount,
+        },
+      });
+    }
+
+    decks.content = formattedContent;
+
     return decks;
   },
 
   findById: async (id: string) => {
-    return prisma.deck.findUnique({
+    const deck = await prisma.deck.findUnique({
       where: { id },
       include: {
-        _count: { select: { cards: true } },
+        _count: {
+          select: {
+            cards: true,
+          },
+        },
+        cards: {
+          where: { nextReview: { lte: new Date() } },
+          select: { id: true },
+        },
       },
     });
+
+    const dueCount = deck!.cards.length;
+    const totalCards = deck!._count.cards;
+    const { deck, cards } = deck;
+    return {
+      ...newDeck,
+      __count: {
+        totalCards,
+        dueCards: dueCount,
+      },
+    };
   },
 
   create: async (data: CreateDeckBody) => {

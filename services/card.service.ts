@@ -13,8 +13,9 @@ import {
 } from "@/types/card";
 import { serverResponse, validateBody, validateQuery } from "@/utils";
 import { NextRequest } from "next/server";
-import { createEmptyCard, generatorParameters, fsrs } from "ts-fsrs";
+import { createEmptyCard, generatorParameters, fsrs, Grade } from "ts-fsrs";
 import { DeckRepo } from "@/repos/deck.impl";
+import { Card } from "@/app/generated/prisma/client";
 
 const f = fsrs(generatorParameters({ enable_fuzz: true }));
 const cardNotFoundError = new NotFoundError("Card not found");
@@ -39,7 +40,7 @@ export const CardService = {
     const rawParams = await params;
     const { id: cardId } = ParamSchema.parse(rawParams);
     const card = await CardRepo.findById(cardId);
-    if (!card) return cardNotFoundError;
+    if (!card) throw cardNotFoundError;
 
     return serverResponse({
       data: card,
@@ -94,31 +95,7 @@ export const CardService = {
     const existing = await CardRepo.findById(cardId);
     if (!existing) throw cardNotFoundError;
 
-    const fsrsCard = createEmptyCard();
-    fsrsCard.due = existing.nextReview;
-    fsrsCard.difficulty = existing.difficulty;
-    fsrsCard.stability = existing.stability;
-    fsrsCard.lapses = existing.lapses;
-    fsrsCard.reps = existing.repetitions;
-    fsrsCard.state = existing.state as 0 | 1 | 2 | 3;
-    fsrsCard.scheduled_days = existing.scheduledDays;
-    fsrsCard.learning_steps = existing.learningSteps;
-    fsrsCard.last_review = existing.lastReviewed ?? undefined;
-
-    const now = new Date();
-    const scheduled = f.next(fsrsCard, now, validatedData.rating);
-
-    const cardUpdated = await CardRepo.updateReview(cardId, {
-      stability: scheduled.card.stability,
-      difficulty: scheduled.card.difficulty,
-      state: scheduled.card.state,
-      repetitions: scheduled.card.reps,
-      lapses: scheduled.card.lapses,
-      nextReview: scheduled.card.due,
-      lastReviewed: scheduled.card.last_review,
-      scheduledDays: scheduled.card.scheduled_days,
-      learningSteps: scheduled.card.learning_steps,
-    });
+    const cardUpdated = implementReview(cardId, existing, validatedData.rating);
 
     return serverResponse({
       data: cardUpdated,
@@ -137,3 +114,37 @@ export const CardService = {
     });
   },
 };
+
+export async function implementReview(
+  id: string,
+  existingCard: Card,
+  rating: Grade,
+) {
+  const fsrsCard = createEmptyCard();
+  fsrsCard.due = existingCard.nextReview;
+  fsrsCard.difficulty = existingCard.difficulty;
+  fsrsCard.stability = existingCard.stability;
+  fsrsCard.lapses = existingCard.lapses;
+  fsrsCard.reps = existingCard.repetitions;
+  fsrsCard.state = existingCard.state as 0 | 1 | 2 | 3;
+  fsrsCard.scheduled_days = existingCard.scheduledDays;
+  fsrsCard.learning_steps = existingCard.learningSteps;
+  fsrsCard.last_review = existingCard.lastReviewed ?? undefined;
+
+  const now = new Date();
+  const scheduled = f.next(fsrsCard, now, rating);
+
+  const cardUpdated = await CardRepo.updateReview(id, {
+    stability: scheduled.card.stability,
+    difficulty: scheduled.card.difficulty,
+    state: scheduled.card.state,
+    repetitions: scheduled.card.reps,
+    lapses: scheduled.card.lapses,
+    nextReview: scheduled.card.due,
+    lastReviewed: scheduled.card.last_review,
+    scheduledDays: scheduled.card.scheduled_days,
+    learningSteps: scheduled.card.learning_steps,
+  });
+
+  return cardUpdated;
+}
