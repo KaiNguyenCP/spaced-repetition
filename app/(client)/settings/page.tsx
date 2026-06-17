@@ -6,7 +6,7 @@ import {
   SlidersHorizontal,
   Save,
 } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/AppShell";
 
 export default function SettingsPage() {
   return (

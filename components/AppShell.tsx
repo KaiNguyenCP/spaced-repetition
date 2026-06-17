@@ -7,7 +7,7 @@ import {
   Settings,
 } from "lucide-react";
 import { Main, Sidebar } from "./layout";
-import { MainProps, NavItem } from "./types";
+import { AppShellProps, NavItem } from "./types";
 
 const nav: NavItem[] = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -24,7 +24,7 @@ export function AppShell({
   subtitle,
   action,
   children,
-}: MainProps) {
+}: AppShellProps) {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <Sidebar active={active} nav={nav} />

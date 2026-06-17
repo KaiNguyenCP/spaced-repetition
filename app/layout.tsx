@@ -10,10 +10,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Recall — Active Recall & Spaced Repetition",
+  title: "Recall - Active Recall & Spaced Repetition",
   description:
     "Study smarter with active recall and spaced repetition powered by FSRS. Track decks, cards, reviews and retention.",
-  generator: "v0.app",
+  generator: "Me! Kai Nguyễn",
   icons: {
     icon: [
       {

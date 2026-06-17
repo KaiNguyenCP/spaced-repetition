@@ -7,7 +7,7 @@ import {
   BookOpen,
   MoreVertical,
 } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/AppShell";
 import { decks } from "@/lib/mock-data";
 
 export default function DecksPage() {

@@ -6,7 +6,7 @@ import {
   Trash2,
   Pencil,
 } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/AppShell";
 import { decks, STATE_META, type CardState } from "@/lib/mock-data";
 
 // Flatten all cards across decks for the browser

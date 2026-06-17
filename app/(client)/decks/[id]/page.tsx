@@ -10,7 +10,7 @@ import {
   Clock,
   TrendingUp,
 } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/AppShell";
 import { decks, STATE_META, type CardState } from "@/lib/mock-data";
 
 export default async function DeckDetailPage({

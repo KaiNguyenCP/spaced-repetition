@@ -1,3 +1,3 @@
-export * from "./Nav.type";
-export * from "./Header.type";
-export * from "./Main.type";
+export * from "./Client.type";
+export * from "./Layout.type";
+export * from "./Dashboard.type";

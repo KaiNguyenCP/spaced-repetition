@@ -7,7 +7,7 @@ import {
   CalendarDays,
   Gauge,
 } from "lucide-react";
-import { AppShell } from "@/components/app-shell";
+import { AppShell } from "@/components/AppShell";
 import {
   reviewActivity,
   forecast,
