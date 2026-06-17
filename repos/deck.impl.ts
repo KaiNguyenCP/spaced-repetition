@@ -59,16 +59,7 @@ export const DeckRepo = {
       },
     });
 
-    const dueCount = deck!.cards.length;
-    const totalCards = deck!._count.cards;
-    const { deck, cards } = deck;
-    return {
-      ...newDeck,
-      __count: {
-        totalCards,
-        dueCards: dueCount,
-      },
-    };
+    return deck;
   },
 
   create: async (data: CreateDeckBody) => {
