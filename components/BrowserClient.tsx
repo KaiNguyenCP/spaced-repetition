@@ -10,7 +10,7 @@ export default function BrowseClient({
 }) {
   return (
     <AppShell
-      active="True"
+      active="Browse"
       title="Browse"
       subtitle={`${allCards.length} cards in preview · filter, search and edit`}
       action={

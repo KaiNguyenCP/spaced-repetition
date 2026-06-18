@@ -18,7 +18,7 @@ export default function StatisticClient({
 }: StatisticClientProps) {
   return (
     <AppShell
-      active="True"
+      active="Statistics"
       title="Statistics"
       subtitle="Your learning performance over time"
       action={

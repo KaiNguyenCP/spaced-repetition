@@ -19,7 +19,7 @@ export const DashboardClient = ({
 }: DashboardClientProps) => {
   return (
     <AppShell
-      active="True"
+      active="Dashboard"
       title="Dashboard"
       subtitle="Wednesday, June 17 · 73 cards due today"
     >

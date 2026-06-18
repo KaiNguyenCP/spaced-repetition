@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { NavProps } from "../types";
 
-
 export const Nav = ({ nav, active }: NavProps) => {
   return (
     <nav className="flex flex-1 flex-col gap-1 p-3">
@@ -19,7 +18,7 @@ export const Nav = ({ nav, active }: NavProps) => {
                 : "text-muted-foreground hover:bg-sidebar-accent/50 hover:text-foreground"
             }`}
           >
-            <Icon className="size-4.5" />
+            <Icon className={`size-4.5 ${isActive ? "text-primary" : ""}`} />
             {item.label}
           </Link>
         );

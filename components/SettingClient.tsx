@@ -5,7 +5,7 @@ import { LeftColumn, RightColumn } from "./features/settings";
 export default function SettingClient() {
   return (
     <AppShell
-      active="True"
+      active="Settings"
       title="Settings"
       subtitle="Scheduling, daily limits and study preferences"
       action={

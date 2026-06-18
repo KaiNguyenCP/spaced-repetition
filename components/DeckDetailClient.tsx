@@ -6,7 +6,7 @@ import { MockDeck } from "@/lib";
 export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
   return (
     <AppShell
-      active="True"
+      active="Decks"
       title={deck.title}
       subtitle={deck.description}
       action={

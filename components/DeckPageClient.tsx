@@ -6,7 +6,7 @@ import { DeckGrid, SearchAndFilters } from "./features/deck";
 export function DeckPageClient() {
   return (
     <AppShell
-      active="true"
+      active="Decks"
       title="Decks"
       subtitle={`${decks.length} decks · ${decks.reduce((a, d) => a + d.total, 0).toLocaleString()} cards total`}
       action={
