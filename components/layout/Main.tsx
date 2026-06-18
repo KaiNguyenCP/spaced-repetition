@@ -12,8 +12,8 @@ export const Main = ({
 }: MainProps) => {
   return (
     <div className="flex h-full min-w-0 flex-1 flex-col overflow-hidden">
-      <Header title={title} subtitle={subtitle} action={action} />
       <MobileNav active={active} nav={nav} />
+      <Header title={title} subtitle={subtitle} action={action} />
       <main className="flex-1 overflow-y-auto px-5 py-6 sm:px-8 sm:py-8">
         {children}
       </main>

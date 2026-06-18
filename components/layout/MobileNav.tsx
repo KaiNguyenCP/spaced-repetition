@@ -3,9 +3,10 @@ import { NavProps } from "../types";
 
 export const MobileNav = ({ nav, active }: NavProps) => {
   return (
-    <nav className="flex gap-1 overflow-x-auto border-b border-border px-3 py-2 lg:hidden">
+    <nav className="flex justify-between overflow-x-auto border-b border-border px-3 py-2 lg:hidden">
       {nav.map((item) => {
         const isActive = item.label === active;
+        const Icon = item.icon;
         return (
           <Link
             key={item.href}
@@ -14,7 +15,7 @@ export const MobileNav = ({ nav, active }: NavProps) => {
               isActive ? "bg-accent text-foreground" : "text-muted-foreground"
             }`}
           >
-            {item.label}
+            <Icon className="size-5.5" aria-label={item.label} />
           </Link>
         );
       })}
