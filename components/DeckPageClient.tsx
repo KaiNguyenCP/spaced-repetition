@@ -1,9 +1,9 @@
-import { decks } from "@/lib";
+import { MockDeck } from "@/lib";
 import { AppShell } from "./AppShell";
 import { Plus } from "lucide-react";
 import { DeckGrid, SearchAndFilters } from "./features/deck";
 
-export function DeckPageClient() {
+export function DeckPageClient({ decks }: { decks: MockDeck[] }) {
   return (
     <AppShell
       active="Decks"
@@ -17,7 +17,7 @@ export function DeckPageClient() {
       }
     >
       <SearchAndFilters />
-      <DeckGrid />
+      <DeckGrid decks={decks} />
     </AppShell>
   );
 }

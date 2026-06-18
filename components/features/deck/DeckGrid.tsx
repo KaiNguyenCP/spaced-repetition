@@ -1,8 +1,8 @@
-import { decks } from "@/lib";
+import { MockDeck } from "@/lib";
 import { BookOpen, Clock, MoreVertical, Plus, Sparkles } from "lucide-react";
 import Link from "next/link";
 
-export const DeckGrid = () => {
+export const DeckGrid = ({ decks }: { decks: MockDeck[] }) => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {decks.map((d) => {
@@ -31,18 +31,22 @@ export const DeckGrid = () => {
             </Link>
 
             {/* counts */}
-            <div className="mt-4 flex items-center gap-4 text-xs">
+            <div className="mt-4 flex justify-between items-center gap-4 text-xs">
               <span className="flex items-center gap-1.5 text-state-new">
-                <span className="size-2 rounded-full bg-state-new" />{" "}
-                {d.newCount} new
+                <span className="size-2 rounded-full bg-state-new" />
+                {d.newCount} New
               </span>
               <span className="flex items-center gap-1.5 text-state-learning">
-                <span className="size-2 rounded-full bg-state-learning" />{" "}
-                {d.learning} learn
+                <span className="size-2 rounded-full bg-state-learning" />
+                {d.learning} Learn
               </span>
               <span className="flex items-center gap-1.5 text-state-review">
-                <span className="size-2 rounded-full bg-state-review" />{" "}
-                {d.review} due
+                <span className="size-2 rounded-full bg-state-review" />
+                {d.review} Review
+              </span>
+              <span className="flex items-center gap-1.5 text-state-relearning">
+                <span className="size-2 rounded-full bg-state-relearning" />
+                {d.relearning} Relearning
               </span>
             </div>
 

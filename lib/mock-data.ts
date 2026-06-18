@@ -53,6 +53,7 @@ export type MockDeck = {
   newCount: number;
   learning: number;
   review: number;
+  relearning: number,
   updatedAt: string;
   cards: MockCard[];
 };
@@ -67,6 +68,7 @@ export const decks: MockDeck[] = [
     newCount: 12,
     learning: 9,
     review: 17,
+    relearning: 6,
     updatedAt: "2 hours ago",
     cards: [
       {
@@ -132,6 +134,7 @@ export const decks: MockDeck[] = [
     newCount: 8,
     learning: 4,
     review: 9,
+    relearning: 6,
     updatedAt: "Yesterday",
     cards: [
       {
@@ -171,6 +174,7 @@ export const decks: MockDeck[] = [
     newCount: 5,
     learning: 3,
     review: 6,
+    relearning: 6,
     updatedAt: "3 days ago",
     cards: [],
   },
@@ -183,6 +187,7 @@ export const decks: MockDeck[] = [
     newCount: 0,
     learning: 0,
     review: 0,
+    relearning: 6,
     updatedAt: "1 week ago",
     cards: [],
   },

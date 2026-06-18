@@ -11,34 +11,9 @@ export const DeckRepo = {
       pageNumber: page,
       pageSize: size,
       include: {
-        _count: {
-          select: {
-            cards: true,
-          },
-        },
-        cards: {
-          where: { nextReview: { lte: new Date() } },
-          select: { id: true },
-        },
+        cards: true,
       },
     });
-
-    const formattedContent = [];
-    for (const deck of decks.content) {
-      const dueCount = deck.cards.length;
-      const totalCards = deck._count.cards;
-      delete deck.cards;
-
-      formattedContent.push({
-        ...deck,
-        _count: {
-          totalCards,
-          dueCards: dueCount,
-        },
-      });
-    }
-
-    decks.content = formattedContent;
 
     return decks;
   },
