@@ -1,5 +1,5 @@
 import { Prisma } from "@/app/generated/prisma/browser";
-import { paginate } from "@/lib";
+import { paginate } from "@/lib/paginate";
 import prisma from "@/lib/prisma";
 import { CreateCardBody, UpdateCardBody } from "@/types/card";
 import { PaginationParams } from "@/types/common";

@@ -1,26 +1,26 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { CreateDeckSchema, UpdateDeckSchema } from "@/types/deck";
+import {
+  CreateDeckBody,
+  CreateDeckSchema,
+  UpdateDeckBody,
+  UpdateDeckSchema,
+} from "@/types/deck";
 import { DeckRepo } from "@/repos/deck.impl";
 
-export async function createDeckAction(formData: FormData) {
-  const raw = {
-    title: formData.get("title") as string,
-    description: (formData.get("description") as string) || undefined,
-  };
-
-  const parsed = CreateDeckSchema.safeParse(raw);
+export async function createDeckAction(data: CreateDeckBody) {
+  const parsed = CreateDeckSchema.safeParse(data);
   if (!parsed.success) {
     return { error: parsed.error.message };
   }
 
-  const deck = await DeckRepo.create(parsed.data);
-  revalidatePath("/");
-  return { data: deck };
+  await DeckRepo.create(parsed.data);
+  revalidatePath("/decks");
+  return { success: true };
 }
 
-export async function updateDeckAction(id: string, formData: FormData) {
+export async function updateDeckAction(id: string, formData: CreateDeckBody) {
   const raw = {
     title: formData.get("title") as string,
     description: (formData.get("description") as string) || undefined,

@@ -1,9 +1,19 @@
-import { ArrowLeft, Link, Sparkles } from "lucide-react";
+"use client";
+import { Sparkles } from "lucide-react";
 import { AppShell } from "./AppShell";
-import { CardsTable, Summary, Toolbar } from "./features/deck";
+import {
+  CardsTable,
+  CreateDeckWrapper,
+  Summary,
+  Toolbar,
+} from "./features/deck";
 import { MockDeck } from "@/lib";
+import Link from "next/link";
+import { useState } from "react";
 
 export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
+  const [isCreateNew, setIsCreateNew] = useState(false);
+
   return (
     <AppShell
       active="Decks"
@@ -19,16 +29,15 @@ export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
         </Link>
       }
     >
-      <Link
-        href="/decks"
-        className="mb-5 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="size-4" /> All decks
-      </Link>
-
-      <Summary deck={deck} />
-      <Toolbar />
-      <CardsTable deck={deck} />
+      {isCreateNew ? (
+        <CreateDeckWrapper setCreateAction={setIsCreateNew} />
+      ) : (
+        <>
+          <Summary deck={deck} />
+          <Toolbar setCreateAction={setIsCreateNew} />
+          <CardsTable deck={deck} />
+        </>
+      )}
     </AppShell>
   );
 };

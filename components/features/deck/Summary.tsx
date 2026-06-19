@@ -21,7 +21,7 @@ export const Summary = ({ deck }: { deck: MockDeck }) => {
       <Mini
         icon={TrendingUp}
         label="Retention"
-        value="89%"
+        value={`${Math.round(deck.retention * 100)}%`}
         tone="text-primary"
       />
     </section>

@@ -1,4 +1,4 @@
-import { paginate } from "@/lib";
+import { paginate } from "@/lib/paginate";
 import prisma from "@/lib/prisma";
 import { PaginationParams } from "@/types/common";
 import { CreateDeckBody, UpdateDeckBody } from "@/types/deck";
@@ -22,15 +22,7 @@ export const DeckRepo = {
     const deck = await prisma.deck.findUnique({
       where: { id },
       include: {
-        _count: {
-          select: {
-            cards: true,
-          },
-        },
-        cards: {
-          where: { nextReview: { lte: new Date() } },
-          select: { id: true },
-        },
+        cards: true,
       },
     });
 

@@ -1,7 +1,7 @@
-export type CardState = 0 | 1 | 2 | 3;
+import { State } from "ts-fsrs";
 
 export const STATE_META: Record<
-  CardState,
+  State,
   { label: string; color: string; bg: string; text: string }
 > = {
   0: {
@@ -34,7 +34,7 @@ export type MockCard = {
   id: string;
   front: string;
   back: string;
-  state: CardState;
+  state: State;
   stability: number;
   difficulty: number;
   repetitions: number;
@@ -53,7 +53,8 @@ export type MockDeck = {
   newCount: number;
   learning: number;
   review: number;
-  relearning: number,
+  relearning: number;
+  retention: number;
   updatedAt: string;
   cards: MockCard[];
 };
@@ -69,6 +70,7 @@ export const decks: MockDeck[] = [
     learning: 9,
     review: 17,
     relearning: 6,
+    retention: 3,
     updatedAt: "2 hours ago",
     cards: [
       {
@@ -135,6 +137,7 @@ export const decks: MockDeck[] = [
     learning: 4,
     review: 9,
     relearning: 6,
+    retention: 3,
     updatedAt: "Yesterday",
     cards: [
       {
@@ -175,6 +178,7 @@ export const decks: MockDeck[] = [
     learning: 3,
     review: 6,
     relearning: 6,
+    retention: 3,
     updatedAt: "3 days ago",
     cards: [],
   },
@@ -188,6 +192,7 @@ export const decks: MockDeck[] = [
     learning: 0,
     review: 0,
     relearning: 6,
+    retention: 3,
     updatedAt: "1 week ago",
     cards: [],
   },
