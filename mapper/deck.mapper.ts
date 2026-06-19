@@ -1,5 +1,4 @@
 import { Prisma, Card } from "@/app/generated/prisma/client";
-import { formatDistanceToNow } from "date-fns";
 import { State } from "ts-fsrs";
 
 const deckWithCardsArgs = {
@@ -33,7 +32,11 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
     (card: Card) => card.state === State.Relearning,
   ).length;
 
-  const updatedAt = formatDistanceToNow(deckIncludeCards.updatedAt, {addSuffix: true})
+  const retention =
+    deckIncludeCards.cards.reduce(
+      (sum, card) => sum + getCardRetention(card),
+      0,
+    ) / deckIncludeCards.cards.length;
 
   return {
     id: deckIncludeCards.id,
@@ -45,7 +48,9 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
     learning,
     review,
     relearning,
-    updatedAt,
+    retention,
+    createdAt: deckIncludeCards.createdAt,
+    updatedAt: deckIncludeCards.updatedAt,
     cards: deckIncludeCards.cards.map((card: Card) => ({
       id: card.id,
       front: card.front,
@@ -60,4 +65,16 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
       lastReviewed: card.lastReviewed ? card.lastReviewed.toISOString() : null,
     })),
   };
+}
+
+function getCardRetention(card: Card) {
+  if (!card.lastReviewed || card.stability <= 0) {
+    return 1;
+  }
+  const now = Date.now();
+
+  const elapsedDays =
+    (now - card.lastReviewed.getTime()) / (1000 * 60 * 60 * 24);
+
+  return Math.pow(0.9, elapsedDays / card.stability);
 }

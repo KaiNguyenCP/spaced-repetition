@@ -1,4 +1,4 @@
-import { Plus } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import { HeaderProps } from "../types";
 
@@ -19,8 +19,8 @@ export const Header = ({ title, subtitle, action }: HeaderProps) => {
             href="/study"
             className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            <Plus className="size-4" />
-            <span className="hidden sm:inline">Add card</span>
+            <Sparkles className="size-4" />
+            <span className="hidden sm:inline">Study</span>
           </Link>
         )}
         <div

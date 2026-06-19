@@ -1,9 +1,24 @@
-import { ArrowLeft, Link, Sparkles } from "lucide-react";
+"use client";
+import { Sparkles } from "lucide-react";
 import { AppShell } from "./AppShell";
 import { CardsTable, Summary, Toolbar } from "./features/deck";
 import { MockDeck } from "@/lib";
+import Link from "next/link";
+import { useState } from "react";
+import { UpdateDeckWrapper } from "./features/deck/UpdateDeckWrapper";
+import { Deck } from "@/app/generated/prisma/client";
+import { deleteDeckAction } from "@/actions/deck.actions";
 
 export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
+  const [isCreateNew, setIsCreateNew] = useState(false);
+  const updateDeck: Deck = {
+    id: deck.id,
+    title: deck.title,
+    description: deck.description,
+    updatedAt: deck.updatedAt,
+    createdAt: deck.createdAt,
+  };
+
   return (
     <AppShell
       active="Decks"
@@ -19,16 +34,20 @@ export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
         </Link>
       }
     >
-      <Link
-        href="/decks"
-        className="mb-5 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
-        <ArrowLeft className="size-4" /> All decks
-      </Link>
-
-      <Summary deck={deck} />
-      <Toolbar />
-      <CardsTable deck={deck} />
+      {isCreateNew ? (
+        <UpdateDeckWrapper setUpdateAction={setIsCreateNew} deck={updateDeck} />
+      ) : (
+        <>
+          <Summary deck={deck} />
+          <Toolbar
+            setUpdateAction={setIsCreateNew}
+            deleteAction={() => {
+              deleteDeckAction(deck.id);
+            }}
+          />
+          <CardsTable deck={deck} />
+        </>
+      )}
     </AppShell>
   );
 };

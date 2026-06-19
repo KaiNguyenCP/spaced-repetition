@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
-import { decks } from "@/lib/mock-data";
 import { DeckDetailClient } from "@/components/DeckDetailClient";
+import { DeckRepo } from "@/repos/deck.impl";
+import { toMockDeck } from "@/mapper/deck.mapper";
 
 export default async function DeckDetailPage({
   params,
@@ -8,8 +9,9 @@ export default async function DeckDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const deck = decks.find((d) => d.id === id);
+  const deck = await DeckRepo.findById(id);
   if (!deck) notFound();
+  const deckMappedOut = toMockDeck(deck);
 
-  return <DeckDetailClient deck={deck} />;
+  return <DeckDetailClient deck={deckMappedOut} />;
 }

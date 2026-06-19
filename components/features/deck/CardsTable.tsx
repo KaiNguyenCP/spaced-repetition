@@ -1,4 +1,5 @@
-import { CardState, MockDeck, STATE_META } from "@/lib";
+import { MockDeck, STATE_META } from "@/lib";
+import { format } from "date-fns";
 
 export const CardsTable = ({ deck }: { deck: MockDeck }) => {
   return (
@@ -28,7 +29,7 @@ export const CardsTable = ({ deck }: { deck: MockDeck }) => {
               </tr>
             ) : (
               deck.cards.map((c) => {
-                const meta = STATE_META[c.state as CardState];
+                const meta = STATE_META[c.state];
                 return (
                   <tr
                     key={c.id}
@@ -60,7 +61,7 @@ export const CardsTable = ({ deck }: { deck: MockDeck }) => {
                       {c.repetitions}
                     </td>
                     <td className="px-4 py-3 text-right text-muted-foreground">
-                      {c.nextReview}
+                      {format(c.nextReview, "HH:mm dd/MM/yyyy")}
                     </td>
                   </tr>
                 );
