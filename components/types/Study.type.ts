@@ -1,3 +1,5 @@
+import { MockCard } from "@/lib";
+
 export type RatingOBJ = {
   key: string;
   label: string;
@@ -15,3 +17,7 @@ export type TopBarProps = {
 export type StudyClientProps = {
   ratings: RatingOBJ[];
 } & TopBarProps;
+
+export type CardViewProps = {
+  card: MockCard | null;
+};

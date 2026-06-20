@@ -1,35 +1,39 @@
 "use client";
-import { DeckFormProps } from "@/components/types";
+import { CardFormProps } from "@/components/types";
 import { SubmitEvent, useState } from "react";
 
-export const DeckForm = ({
+export const CardForm = ({
   initialData,
+  deckId,
   onCancel,
   onSubmit,
   submitLabel = "Create",
   submittingLabel = "Creating...",
-  formTitle = "Create Deck",
-}: DeckFormProps) => {
-  const [title, setTitle] = useState(initialData?.title || "");
-  const [description, setDescription] = useState(
-    initialData?.description || "",
-  );
+  formTitle = "Create new Card",
+}: CardFormProps) => {
+  const [front, setFront] = useState(initialData?.front || "");
+  const [back, setBack] = useState(initialData?.back || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: SubmitEvent) => {
     e.preventDefault();
 
-    if (!title.trim()) {
-      alert("Please enter a deck title");
+    if (!front.trim()) {
+      alert("Please enter a front content");
+      return;
+    }
+
+    if (!back.trim()) {
+      alert("Please enter a deck content");
       return;
     }
 
     setIsSubmitting(true);
-    const result = await onSubmit({ title, description });
+    const result = await onSubmit({ deckId, front, back });
     setIsSubmitting(false);
 
-    if (result && !result.success) {
-      alert(result.error || "Something went wrong!");
+    if (!result) {
+      alert("Something went wrong!");
     }
   };
 
@@ -40,21 +44,23 @@ export const DeckForm = ({
           <h2 className="text-xl font-semibold">{formTitle}</h2>
           <p className="mt-1 text-sm text-muted-foreground">
             {initialData
-              ? "Update your deck information."
-              : "Create a new collection of cards for spaced repetition."}
+              ? "Update your card information."
+              : "Create a new card."}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title */}
+          {/* Front */}
           <div>
-            <label className="mb-2 block text-sm font-medium">Deck title</label>
+            <label className="mb-2 block text-sm font-medium">
+              Front side content
+            </label>
             <input
               type="text"
               required
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Japanese N5 Vocabulary"
+              value={front}
+              onChange={(e) => setFront(e.target.value)}
+              placeholder="こんにちは"
               className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
             />
           </div>
@@ -62,14 +68,14 @@ export const DeckForm = ({
           {/* Description */}
           <div>
             <label className="mb-2 block text-sm font-medium">
-              Description
+              Back side content
             </label>
-            <textarea
-              rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Common Japanese words and phrases for JLPT N5."
-              className="w-full resize-none rounded-lg border border-border bg-background p-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
+            <input
+              required
+              value={back}
+              onChange={(e) => setBack(e.target.value)}
+              placeholder="Xin chào!"
+              className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary"
             />
           </div>
 

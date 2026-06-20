@@ -1,16 +1,28 @@
 "use client";
-import { Sparkles } from "lucide-react";
-import { AppShell } from "./AppShell";
-import { CardsTable, Summary, Toolbar } from "./features/deck";
-import { MockDeck } from "@/lib";
-import Link from "next/link";
 import { useState } from "react";
-import { UpdateDeckWrapper } from "./features/deck/UpdateDeckWrapper";
+import { Sparkles } from "lucide-react";
+import Link from "next/link";
+import { AppShell } from "./AppShell";
+import {
+  CardsTable,
+  CreateCardWrapper,
+  Summary,
+  Toolbar,
+  UpdateDeckWrapper,
+} from "./features/deck";
 import { Deck } from "@/app/generated/prisma/client";
 import { deleteDeckAction } from "@/actions/deck.actions";
+import { MockCard, MockDeck } from "@/lib";
+import { PreviewCard } from "./features/deck/PreviewCard";
 
 export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
-  const [isCreateNew, setIsCreateNew] = useState(false);
+  const [isCreateNewDeck, setIsCreateNewDeck] = useState(false);
+  const [isCreateNewCard, setIsCreateNewCard] = useState(false);
+  const [isOpenPreview, setIsOpenPreview] = useState(false);
+  const [isCurrentCardPreview, setCurrentCardPreview] =
+    useState<MockCard | null>(null);
+  const [isEditCard, setIsEditCard] = useState(false);
+
   const updateDeck: Deck = {
     id: deck.id,
     title: deck.title,
@@ -34,18 +46,43 @@ export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
         </Link>
       }
     >
-      {isCreateNew ? (
-        <UpdateDeckWrapper setUpdateAction={setIsCreateNew} deck={updateDeck} />
+      {isCreateNewDeck ? (
+        <UpdateDeckWrapper
+          setUpdateAction={setIsCreateNewDeck}
+          deck={updateDeck}
+        />
       ) : (
         <>
           <Summary deck={deck} />
-          <Toolbar
-            setUpdateAction={setIsCreateNew}
-            deleteAction={() => {
-              deleteDeckAction(deck.id);
-            }}
-          />
-          <CardsTable deck={deck} />
+          {isCreateNewCard ? (
+            <CreateCardWrapper
+              deckId={deck.id}
+              setCreateAction={setIsCreateNewCard}
+            />
+          ) : (
+            <>
+              <Toolbar
+                setCreateCardAction={setIsCreateNewCard}
+                setUpdateAction={setIsCreateNewDeck}
+                deleteAction={() => {
+                  deleteDeckAction(deck.id);
+                }}
+              />
+              <CardsTable
+                deck={deck}
+                setPreviewAction={setIsOpenPreview}
+                setCurrentCardPreview={setCurrentCardPreview}
+              />
+              <PreviewCard
+                isOpen={isOpenPreview}
+                card={isCurrentCardPreview}
+                onClose={setIsOpenPreview}
+                isEditCard={isEditCard}
+                onEditCard={setIsEditCard}
+                setCardUpdated={setCurrentCardPreview}
+              />
+            </>
+          )}
         </>
       )}
     </AppShell>

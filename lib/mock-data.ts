@@ -42,6 +42,9 @@ export type MockCard = {
   scheduledDays: number;
   nextReview: string;
   lastReviewed: string | null;
+  deckId: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type MockDeck = {
@@ -87,6 +90,9 @@ export const decks: MockDeck[] = [
         scheduledDays: 25,
         nextReview: "Jun 18",
         lastReviewed: "May 24",
+        deckId: "d1",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: "c2",
@@ -100,6 +106,9 @@ export const decks: MockDeck[] = [
         scheduledDays: 1,
         nextReview: "Today",
         lastReviewed: "Jun 16",
+        deckId: "d1",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: "c3",
@@ -113,6 +122,9 @@ export const decks: MockDeck[] = [
         scheduledDays: 0,
         nextReview: "New",
         lastReviewed: null,
+        deckId: "d1",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: "c4",
@@ -125,7 +137,10 @@ export const decks: MockDeck[] = [
         lapses: 3,
         scheduledDays: 1,
         nextReview: "Today",
+        deckId: "d1",
         lastReviewed: "Jun 16",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ],
   },
@@ -149,12 +164,15 @@ export const decks: MockDeck[] = [
         back: "Produces ATP through cellular respiration — the powerhouse of the cell.",
         state: 2,
         stability: 41.2,
+        deckId: "d1",
         difficulty: 3.4,
         repetitions: 9,
         lapses: 0,
         scheduledDays: 41,
         nextReview: "Jul 27",
         lastReviewed: "Jun 15",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: "c6",
@@ -165,9 +183,12 @@ export const decks: MockDeck[] = [
         difficulty: 5.0,
         repetitions: 4,
         lapses: 1,
+        deckId: "d1",
         scheduledDays: 12,
         nextReview: "Jun 28",
         lastReviewed: "Jun 16",
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ],
   },

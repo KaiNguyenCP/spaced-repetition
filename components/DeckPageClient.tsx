@@ -11,7 +11,7 @@ export function DeckPageClient({ decks }: DeckPageClientProps) {
     <AppShell
       active="Decks"
       title="Decks"
-      subtitle={`[${decks.length} decks] - [${decks.reduce((a, d) => a + d.total, 0).toLocaleString()} cards total]`}
+      subtitle={`[${decks.length} decks] · [${decks.reduce((a, d) => a + d.total, 0).toLocaleString()} cards total]`}
       action={
         <button
           className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"

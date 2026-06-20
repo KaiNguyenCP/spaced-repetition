@@ -2,56 +2,41 @@
 import { CardRepo } from "@/repos/card.impl";
 import { implementReview } from "@/services/card.service";
 import {
+  CreateCardBody,
   CreateCardSchema,
   ReviewCardSchema,
+  UpdateCardBody,
   UpdateCardSchema,
 } from "@/types/card";
 import { revalidatePath } from "next/cache";
 import { Grade } from "ts-fsrs";
 import { Card } from "@/app/generated/prisma/client";
 
-export async function createCardAction(deckId: string, formData: FormData) {
-  const raw = {
-    deckId,
-    front: formData.get("front") as string,
-    back: formData.get("back") as string,
-  };
-
-  const parsed = CreateCardSchema.safeParse(raw);
+export async function createCardAction(data: CreateCardBody) {
+  const parsed = CreateCardSchema.safeParse(data);
   if (!parsed.success) {
     return { error: parsed.error.message };
   }
 
   const card = await CardRepo.create(parsed.data);
-  revalidatePath(`/decks/${deckId}`);
+  revalidatePath(`/decks/${data.deckId}`);
   return { data: card };
 }
 
-export async function updateCardAction(
-  deckId: string,
-  cardId: string,
-  formData: FormData,
-) {
-  const raw = {
-    front: formData.get("front") as string,
-    back: formData.get("back") as string,
-  };
-
-  const parsed = UpdateCardSchema.safeParse(raw);
+export async function updateCardAction(cardId: string, data: UpdateCardBody) {
+  const parsed = UpdateCardSchema.safeParse(data);
   if (!parsed.success) {
     return { error: parsed.error.message };
   }
 
   const card = await CardRepo.update(cardId, parsed.data);
-  if (!card) return { error: "Không tìm thấy thẻ" };
-
-  revalidatePath(`/decks/${deckId}`);
-  return { data: card };
+  revalidatePath("/");
+  revalidatePath(`/decks/${data.deckId}`);
+  return { data: card, success: true };
 }
 
 export async function deleteCardAction(deckId: string, cardId: string) {
-  const deleted = await CardRepo.delete(cardId);
-  if (!deleted) return { error: "Không tìm thấy thẻ" };
+  await CardRepo.delete(cardId);
   revalidatePath(`/decks/${deckId}`);
   return { success: true };
 }

@@ -63,6 +63,9 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
       scheduledDays: card.scheduledDays,
       nextReview: card.nextReview.toISOString(),
       lastReviewed: card.lastReviewed ? card.lastReviewed.toISOString() : null,
+      createdAt: card.createdAt,
+      updatedAt: card.updatedAt,
+      deckId: card.deckId,
     })),
   };
 }

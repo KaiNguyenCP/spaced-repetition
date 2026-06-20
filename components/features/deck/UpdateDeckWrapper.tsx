@@ -1,15 +1,13 @@
 import { UpdateDeckWrapperProps } from "@/components/types";
 import { DeckForm } from "./DeckForm";
 import { updateDeckAction } from "@/actions/deck.actions";
+import { UpdateDeckBody } from "@/types/deck";
 
 export const UpdateDeckWrapper = ({
   deck,
   setUpdateAction,
 }: UpdateDeckWrapperProps) => {
-  const handleUpdate = async (data: {
-    title: string;
-    description?: string;
-  }) => {
+  const handleUpdate = async (data: UpdateDeckBody) => {
     const result = await updateDeckAction(deck.id, data);
     if (result?.success) {
       setUpdateAction(false);
