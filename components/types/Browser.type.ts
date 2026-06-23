@@ -1,16 +1,16 @@
-import { CardState } from "@/lib";
+import { State } from "ts-fsrs";
 
 export type CardBrowser = {
   deckTitle: string;
   id: string;
   front: string;
   back: string;
-  state: CardState;
+  state: State;
   stability: number;
   difficulty: number;
   repetitions: number;
   lapses: number;
   scheduledDays: number;
-  nextReview: string;
-  lastReviewed: string | null;
+  nextReview: Date;
+  lastReviewed: Date | null;
 };

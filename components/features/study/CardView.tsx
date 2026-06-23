@@ -37,7 +37,7 @@ export const stateLabel = (state: State) => {
   }
 };
 
-export const CardView = ({ card }: CardViewProps) => {
+export const CardView = ({ card, showAnswer }: CardViewProps) => {
   if (!card) return;
   const state = stateLabel(card.state);
   return (
@@ -71,7 +71,13 @@ export const CardView = ({ card }: CardViewProps) => {
 
       {/* Back */}
       <div className="flex flex-col items-center gap-2 px-6 py-10 text-center">
-        <p className="text-2xl font-medium">{card.back}</p>
+        <p
+          className={
+            showAnswer ? "text-2xl font-medium" : "blur-lg text-2xl font-medium"
+          }
+        >
+          {card.back}
+        </p>
         {/* <p className="text-lg text-muted-foreground">proposal, suggestion</p>
         <p className="mt-3 max-w-md text-sm text-muted-foreground">
           新しい提案を会議で発表した。 — I presented a new proposal at the

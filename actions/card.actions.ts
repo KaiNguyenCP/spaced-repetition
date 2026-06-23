@@ -53,7 +53,6 @@ export async function reviewCardAction(
   }
 
   const cardReviewed = await implementReview(cardId, card, parsed.data.rating);
-  if (!cardReviewed) return { error: "Không tìm thấy thẻ" };
   revalidatePath(`/study/${deckId}`);
   revalidatePath("/");
   return { data: cardReviewed };

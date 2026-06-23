@@ -69,7 +69,7 @@ export const DeckGrid = ({ decks, setCreateAction }: DeckGridProps) => {
                 </span>
                 {d.due > 0 ? (
                   <Link
-                    href="/study"
+                    href={`/study/${d.id}`}
                     className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
                   >
                     <Sparkles className="size-3.5" /> Study {d.due}

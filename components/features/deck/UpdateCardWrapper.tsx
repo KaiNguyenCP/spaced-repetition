@@ -24,13 +24,12 @@ export const UpdateCardWrapper = ({
       repetitions: result.data.repetitions,
       lapses: result.data.lapses,
       scheduledDays: result.data.scheduledDays,
-      nextReview: result.data.nextReview.toISOString(),
-      lastReviewed: result.data.lastReviewed
-        ? result.data.lastReviewed.toISOString()
-        : null,
+      nextReview: result.data.nextReview,
+      lastReviewed: result.data.lastReviewed ? result.data.lastReviewed : null,
       createdAt: result.data.createdAt,
       updatedAt: result.data.updatedAt,
       deckId: result.data.deckId,
+      learningSteps: result.data.learningSteps,
     });
 
     return result;

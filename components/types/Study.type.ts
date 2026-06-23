@@ -1,23 +1,28 @@
-import { MockCard } from "@/lib";
-
-export type RatingOBJ = {
-  key: string;
-  label: string;
-  interval: string;
-  sub: string;
-  cls: string;
-};
+import { MockCard, MockDeck } from "@/lib";
+import { Grade } from "ts-fsrs";
 
 export type TopBarProps = {
   done: number;
   total: number;
   pct: number;
+  title: string;
+  onEditCard: (value: boolean) => void;
 };
 
 export type StudyClientProps = {
-  ratings: RatingOBJ[];
-} & TopBarProps;
+  deck: MockDeck;
+};
 
 export type CardViewProps = {
   card: MockCard | null;
+  showAnswer: boolean;
+};
+
+export type CardAreaProps = {
+  cards: MockCard[];
+  setCurrentCard: (value: MockCard) => void;
+};
+export type RatingButtonProps = {
+  onRate: (rating: Grade) => void;
+  card: MockCard;
 };

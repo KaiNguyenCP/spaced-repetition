@@ -12,6 +12,10 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
 
   const total = deckIncludeCards.cards.length;
 
+  const done = deckIncludeCards.cards.filter(
+    (card: Card) => card.state !== State.New,
+  ).length;
+
   const due = deckIncludeCards.cards.filter(
     (card: Card) => card.nextReview <= now,
   ).length;
@@ -33,16 +37,19 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
   ).length;
 
   const retention =
-    deckIncludeCards.cards.reduce(
-      (sum, card) => sum + getCardRetention(card),
-      0,
-    ) / deckIncludeCards.cards.length;
+    total > 0
+      ? deckIncludeCards.cards.reduce(
+          (sum, card) => sum + getCardRetention(card),
+          0,
+        ) / total
+      : 1;
 
   return {
     id: deckIncludeCards.id,
     title: deckIncludeCards.title,
     description: deckIncludeCards.description ?? "",
     total,
+    doneCards: done,
     due,
     newCount,
     learning,
@@ -61,8 +68,9 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
       repetitions: card.repetitions,
       lapses: card.lapses,
       scheduledDays: card.scheduledDays,
-      nextReview: card.nextReview.toISOString(),
-      lastReviewed: card.lastReviewed ? card.lastReviewed.toISOString() : null,
+      learningSteps: card.learningSteps,
+      nextReview: card.nextReview,
+      lastReviewed: card.lastReviewed ? card.lastReviewed : null,
       createdAt: card.createdAt,
       updatedAt: card.updatedAt,
       deckId: card.deckId,

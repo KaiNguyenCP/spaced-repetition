@@ -1,5 +1,6 @@
 import { CardBrowser } from "@/components/types/Browser.type";
-import { CardState, STATE_META } from "@/lib";
+import { STATE_META } from "@/lib";
+import { formatDistanceToNow } from "date-fns";
 import { Pencil, Trash2 } from "lucide-react";
 
 export const TableBrowser = ({ allCards }: { allCards: CardBrowser[] }) => {
@@ -27,7 +28,7 @@ export const TableBrowser = ({ allCards }: { allCards: CardBrowser[] }) => {
           </thead>
           <tbody className="divide-y divide-border">
             {allCards.map((c) => {
-              const meta = STATE_META[c.state as CardState];
+              const meta = STATE_META[c.state];
               return (
                 <tr
                   key={c.id}
@@ -61,7 +62,9 @@ export const TableBrowser = ({ allCards }: { allCards: CardBrowser[] }) => {
                     {c.lapses}
                   </td>
                   <td className="px-4 py-3 text-right text-muted-foreground">
-                    {c.nextReview}
+                    {formatDistanceToNow(new Date(c.nextReview), {
+                      addSuffix: true,
+                    })}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-1 opacity-0 transition-opacity group-hover:opacity-100">

@@ -40,8 +40,9 @@ export type MockCard = {
   repetitions: number;
   lapses: number;
   scheduledDays: number;
-  nextReview: string;
-  lastReviewed: string | null;
+  learningSteps: number;
+  nextReview: Date;
+  lastReviewed: Date | null;
   deckId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -52,6 +53,7 @@ export type MockDeck = {
   title: string;
   description: string;
   total: number;
+  doneCards: number;
   due: number;
   newCount: number;
   learning: number;
@@ -70,6 +72,7 @@ export const decks: MockDeck[] = [
     description: "Core 2,000 words for the N3 level exam.",
     total: 842,
     due: 38,
+    doneCards: 38,
     newCount: 12,
     learning: 9,
     review: 17,
@@ -87,9 +90,10 @@ export const decks: MockDeck[] = [
         difficulty: 4.1,
         repetitions: 7,
         lapses: 1,
+        learningSteps: 25,
         scheduledDays: 25,
-        nextReview: "Jun 18",
-        lastReviewed: "May 24",
+        nextReview: new Date(),
+        lastReviewed: new Date(),
         deckId: "d1",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -103,9 +107,10 @@ export const decks: MockDeck[] = [
         difficulty: 6.8,
         repetitions: 2,
         lapses: 0,
+        learningSteps: 1,
         scheduledDays: 1,
-        nextReview: "Today",
-        lastReviewed: "Jun 16",
+        nextReview: new Date(),
+        lastReviewed: new Date(),
         deckId: "d1",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -119,9 +124,10 @@ export const decks: MockDeck[] = [
         difficulty: 0,
         repetitions: 0,
         lapses: 0,
+        learningSteps: 0,
         scheduledDays: 0,
-        nextReview: "New",
-        lastReviewed: null,
+        nextReview: new Date(),
+        lastReviewed: new Date(),
         deckId: "d1",
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -135,10 +141,11 @@ export const decks: MockDeck[] = [
         difficulty: 8.2,
         repetitions: 5,
         lapses: 3,
+        learningSteps: 1,
         scheduledDays: 1,
-        nextReview: "Today",
+        nextReview: new Date(),
+        lastReviewed: new Date(),
         deckId: "d1",
-        lastReviewed: "Jun 16",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -150,6 +157,7 @@ export const decks: MockDeck[] = [
     description: "Organelles, membranes, and cellular transport.",
     total: 318,
     due: 21,
+    doneCards: 38,
     newCount: 8,
     learning: 4,
     review: 9,
@@ -168,9 +176,10 @@ export const decks: MockDeck[] = [
         difficulty: 3.4,
         repetitions: 9,
         lapses: 0,
+        learningSteps: 41,
         scheduledDays: 41,
-        nextReview: "Jul 27",
-        lastReviewed: "Jun 15",
+        nextReview: new Date(),
+        lastReviewed: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -184,9 +193,10 @@ export const decks: MockDeck[] = [
         repetitions: 4,
         lapses: 1,
         deckId: "d1",
+        learningSteps: 12,
         scheduledDays: 12,
-        nextReview: "Jun 28",
-        lastReviewed: "Jun 16",
+        nextReview: new Date(),
+        lastReviewed: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -197,6 +207,7 @@ export const decks: MockDeck[] = [
     title: "System Design Interview",
     description: "Caching, load balancing, sharding, and CAP theorem.",
     total: 156,
+    doneCards: 38,
     due: 14,
     newCount: 5,
     learning: 3,
@@ -212,6 +223,7 @@ export const decks: MockDeck[] = [
     title: "Spanish — Common Verbs",
     description: "The 300 most frequent verbs and conjugations.",
     total: 412,
+    doneCards: 38,
     due: 0,
     newCount: 0,
     learning: 0,
