@@ -3,17 +3,23 @@ import { useState } from "react";
 import { CardArea, CountsRow, TopBar } from "./features/study";
 import { StudyClientProps } from "./types";
 import { UpdateCardWrapper } from "./features/deck/UpdateCardWrapper";
-import { MockCard } from "@/lib";
-import { State } from "ts-fsrs";
 
 export default function StudyClient({ deck }: StudyClientProps) {
-  const learningCards = deck.cards.filter((c) => c.state === State.Learning);
   const [isUpdateCard, setUpdateCard] = useState(false);
-  const [isCurrentCard, setCurrentCard] = useState<MockCard>(learningCards[0]);
-
+  const [sessionCardIds] = useState<string[]>(() =>
+    deck.cards.map((c) => c.id),
+  );
+  const [currentSessionIndex, setCurrentSessionIndex] = useState(0);
+  const currentCardId = sessionCardIds[currentSessionIndex] || null;
+  const currentCard = deck.cards.find((c) => c.id === currentCardId);
+  const handleNextCard = () => {
+    setCurrentSessionIndex((prev) => prev + 1);
+  };
   const done = deck.doneCards;
-  const total = learningCards.length;
+  const total = deck.total;
   const pct = Math.round((done / total) * 100);
+  const isSessionFinished =
+    currentSessionIndex >= sessionCardIds.length || !currentCardId;
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <TopBar
@@ -24,18 +30,22 @@ export default function StudyClient({ deck }: StudyClientProps) {
         onEditCard={setUpdateCard}
       />
       <CountsRow deck={deck} />
-      {isUpdateCard ? (
+      {isUpdateCard && currentCard ? (
         <div className="w-full flex flex-1 items-center px-5 py-6 sm:px-8 sm:py-8">
           <div className="w-full">
             <UpdateCardWrapper
-              card={isCurrentCard}
-              setCardUpdated={setCurrentCard}
+              card={currentCard}
               setUpdateAction={setUpdateCard}
+              setCardUpdated={() => {}}
             />
           </div>
         </div>
       ) : (
-        <CardArea cards={deck.cards} setCurrentCard={setCurrentCard} />
+        <CardArea
+          currentCard={currentCard}
+          isFinished={isSessionFinished}
+          onNext={handleNextCard}
+        />
       )}
     </div>
   );

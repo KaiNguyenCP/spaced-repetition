@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback } from "react"; // 1. Import thêm useCallback
+import { useEffect, useState, useCallback } from "react";
 import { CardAreaProps } from "@/components/types";
 import { CardView } from "./CardView";
 import { RevealHint } from "./RevealHint";
@@ -10,11 +10,12 @@ import { Balloon, PartyPopper } from "lucide-react";
 import Link from "next/link";
 import { reviewCardAction } from "@/actions/card.actions";
 
-export const CardArea = ({ cards, setCurrentCard }: CardAreaProps) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+export const CardArea = ({
+  currentCard,
+  isFinished,
+  onNext,
+}: CardAreaProps) => {
   const [showAnswer, setShowAnswer] = useState(false);
-  const currentCard = cards[currentIndex];
-
   const handleRate = useCallback(
     async (rating: Grade) => {
       if (!currentCard) return;
@@ -25,17 +26,11 @@ export const CardArea = ({ cards, setCurrentCard }: CardAreaProps) => {
         rating,
         currentCard,
       );
-      setCurrentIndex((prev) => prev + 1);
       setShowAnswer(false);
+      onNext();
     },
-    [currentCard],
+    [currentCard, onNext],
   );
-
-  useEffect(() => {
-    if (cards && cards.length > 0 && currentIndex < cards.length) {
-      setCurrentCard(cards[currentIndex]);
-    }
-  }, [cards, currentIndex, setCurrentCard]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -80,7 +75,7 @@ export const CardArea = ({ cards, setCurrentCard }: CardAreaProps) => {
     };
   }, [showAnswer, handleRate]);
 
-  if (!cards || cards.length === 0 || currentIndex >= cards.length) {
+  if (isFinished || !currentCard) {
     return (
       <main className="flex flex-1 items-center justify-center p-6">
         <div className="flex flex-col items-center text-center space-y-6 bg-card p-8 rounded-2xl shadow-xl backdrop-blur-sm animate-in fade-in zoom-in-95 duration-300 md:min-w-xl">

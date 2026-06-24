@@ -19,8 +19,9 @@ export type CardViewProps = {
 };
 
 export type CardAreaProps = {
-  cards: MockCard[];
-  setCurrentCard: (value: MockCard) => void;
+  currentCard: MockCard | undefined;
+  isFinished: boolean;
+  onNext: () => void;
 };
 export type RatingButtonProps = {
   onRate: (rating: Grade) => void;
