@@ -48,14 +48,8 @@ export const CardService = {
     });
   },
 
-  getDueCards: async (
-    req: NextRequest,
-    { params }: RouteContext<IdParameters>,
-  ) => {
-    const rawParams = await params;
-    const { id: deckId } = ParamSchema.parse(rawParams);
-    const queryParams = await validateQuery(req, PaginationParamsSchema);
-    const cards = await CardRepo.findDueCards(deckId, queryParams);
+  getDueCards: async () => {
+    const cards = await CardRepo.findDueCards();
     return serverResponse({
       data: cards,
       message: "Get due cards successfully.",
