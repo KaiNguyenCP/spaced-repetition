@@ -15,9 +15,9 @@ export default function StudyClient({ deck }: StudyClientProps) {
   const handleNextCard = () => {
     setCurrentSessionIndex((prev) => prev + 1);
   };
-  const done = deck.doneCards;
+  const done = currentSessionIndex;
   const total = deck.total;
-  const pct = Math.round((done / total) * 100);
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
   const isSessionFinished =
     currentSessionIndex >= sessionCardIds.length || !currentCardId;
   return (

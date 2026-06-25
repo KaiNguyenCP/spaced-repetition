@@ -38,3 +38,7 @@ export type CountsRowProps = {
   review: number;
   relearning: number;
 };
+
+export type FooterActionProps = {
+  onEditCard: (value: boolean) => void;
+};

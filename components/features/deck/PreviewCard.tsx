@@ -1,10 +1,8 @@
-"use client";
 import { Settings2, Trash2, X } from "lucide-react";
 import { CardView } from "../study";
 import { PreviewCardProps } from "@/components/types";
 import { UpdateCardWrapper } from "./UpdateCardWrapper";
 import { deleteCardAction } from "@/actions/card.actions";
-import { useState } from "react";
 
 export const PreviewCard = ({
   isOpen,
@@ -14,8 +12,6 @@ export const PreviewCard = ({
   onEditCard,
   setCardUpdated,
 }: PreviewCardProps) => {
-  const [showAnswer, setShowAnswer] = useState(false);
-
   if (!isOpen || !card) return null;
 
   return (
@@ -76,7 +72,7 @@ export const PreviewCard = ({
             setCardUpdated={setCardUpdated}
           />
         ) : (
-          <CardView card={card} showAnswer={showAnswer} />
+          <CardView card={card} showAnswer={true} />
         )}
       </div>
     </div>

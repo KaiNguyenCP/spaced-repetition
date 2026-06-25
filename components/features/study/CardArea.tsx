@@ -4,7 +4,6 @@ import { CardAreaProps } from "@/components/types";
 import { CardView } from "./CardView";
 import { RevealHint } from "./RevealHint";
 import { RatingButtons } from "./RatingButtons";
-import { FooterActions } from "./FooterActions";
 import { Grade, Rating } from "ts-fsrs";
 import { Balloon, PartyPopper } from "lucide-react";
 import Link from "next/link";
@@ -120,7 +119,7 @@ export const CardArea = ({
           <RatingButtons onRate={handleRate} card={currentCard} />
         )}
 
-        <FooterActions />
+        {/* <FooterActions /> */}
       </div>
     </main>
   );

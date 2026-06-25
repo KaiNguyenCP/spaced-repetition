@@ -15,7 +15,7 @@ export default function StudyDueClient({ cards }: StudyDueClientProps) {
   const handleNextCard = () => {
     setCurrentSessionIndex((prev) => prev + 1);
   };
-  const done = cards.length;
+  const done = currentSessionIndex;
   const total = cards.length;
   const pct = Math.round((done / total) * 100);
   const isSessionFinished =

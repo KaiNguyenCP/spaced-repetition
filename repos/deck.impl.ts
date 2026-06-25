@@ -49,4 +49,22 @@ export const DeckRepo = {
       },
     });
   },
+
+  getDueList: async (id: string) => {
+    return prisma.deck.findUnique({
+      where: {id},
+      include: {
+        cards: {
+          where: {
+            nextReview: {
+              lte: new Date(),
+            },
+          },
+          orderBy: {
+            nextReview: "asc",
+          },
+        },
+      },
+    });
+  },
 };

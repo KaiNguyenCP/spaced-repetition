@@ -53,7 +53,5 @@ export async function reviewCardAction(
   }
 
   const cardReviewed = await implementReview(cardId, card, parsed.data.rating);
-  revalidatePath(`/study/${deckId}`);
-  revalidatePath("/");
   return { data: cardReviewed };
 }
