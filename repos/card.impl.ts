@@ -21,18 +21,12 @@ export const CardRepo = {
     return prisma.card.findUnique({ where: { id } });
   },
 
-  findDueCards: async (deckId: string, params: PaginationParams) => {
-    const { page = 1, size = 20 } = params;
-
-    const cards = await paginate({
-      modelName: "card",
+  findDueCards: async () => {
+    const cards = await prisma.card.findMany({
       where: {
-        deckId,
         nextReview: { lte: new Date() },
       },
       orderBy: { nextReview: "asc" },
-      pageNumber: page,
-      pageSize: size,
     });
     return cards;
   },

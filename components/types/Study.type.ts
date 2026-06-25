@@ -13,6 +13,10 @@ export type StudyClientProps = {
   deck: MockDeck;
 };
 
+export type StudyDueClientProps = {
+  cards: MockCard[];
+};
+
 export type CardViewProps = {
   card: MockCard | null;
   showAnswer: boolean;
@@ -26,4 +30,11 @@ export type CardAreaProps = {
 export type RatingButtonProps = {
   onRate: (rating: Grade) => void;
   card: MockCard;
+};
+
+export type CountsRowProps = {
+  newCount: number;
+  learning: number;
+  review: number;
+  relearning: number;
 };
