@@ -1,6 +1,9 @@
+import { SearchAndFilterProps } from "@/components/types";
 import { Search } from "lucide-react";
 
-export const SearchAndFilters = () => {
+export const SearchAndFilters = ({
+  setJPImportAction,
+}: SearchAndFilterProps) => {
   return (
     <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="relative flex-1">
@@ -12,7 +15,7 @@ export const SearchAndFilters = () => {
         />
       </div>
       <div className="flex items-center gap-2">
-        {["All", "Due", "New", "Archived"].map((f, i) => (
+        {["All", "Due", "New"].map((f, i) => (
           <button
             key={f}
             className={`rounded-md px-3 py-2 text-sm font-medium transition-colors ${
@@ -24,6 +27,14 @@ export const SearchAndFilters = () => {
             {f}
           </button>
         ))}
+        <button
+          className="rounded-md px-3 py-2 text-sm font-medium transition-colors bg-accent text-foreground"
+          onClick={() => {
+            setJPImportAction(true);
+          }}
+        >
+          JP Import
+        </button>
       </div>
     </div>
   );

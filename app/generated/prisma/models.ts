@@ -10,4 +10,6 @@
  */
 export type * from './models/Deck'
 export type * from './models/Card'
+export type * from './models/Content'
+export type * from './models/JapanVocab'
 export type * from './commonInputTypes'

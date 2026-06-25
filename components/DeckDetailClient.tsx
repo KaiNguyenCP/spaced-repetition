@@ -12,20 +12,22 @@ import {
 } from "./features/deck";
 import { Deck } from "@/app/generated/prisma/client";
 import { deleteDeckAction } from "@/actions/deck.actions";
-import { MockCard, MockDeck } from "@/lib";
+import { MockDeck } from "@/lib";
 import { PreviewCard } from "./features/deck/PreviewCard";
+import { CardWithContents } from "@/mapper/deck.mapper";
 
 export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
   const [isCreateNewDeck, setIsCreateNewDeck] = useState(false);
   const [isCreateNewCard, setIsCreateNewCard] = useState(false);
   const [isOpenPreview, setIsOpenPreview] = useState(false);
   const [isCurrentCardPreview, setCurrentCardPreview] =
-    useState<MockCard | null>(null);
+    useState<CardWithContents | null>(null);
   const [isEditCard, setIsEditCard] = useState(false);
 
   const updateDeck: Deck = {
     id: deck.id,
     title: deck.title,
+    sourceType: "JAPANESE",
     description: deck.description,
     updatedAt: deck.updatedAt,
     createdAt: deck.createdAt,
@@ -35,7 +37,7 @@ export const DeckDetailClient = ({ deck }: { deck: MockDeck }) => {
     <AppShell
       active="Decks"
       title={deck.title}
-      subtitle={deck.description}
+      subtitle={deck.description || ""}
       action={
         <Link
           href={`/study/${deck.id}`}

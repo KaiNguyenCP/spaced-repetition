@@ -2,17 +2,35 @@ import { Prisma, Card } from "@/app/generated/prisma/client";
 import { State } from "ts-fsrs";
 
 const deckWithCardsArgs = {
-  include: { cards: true },
+  include: {
+    cards: {
+      include: {
+        contents: {
+          include: { japanVocab: true },
+        },
+      },
+    },
+  },
 } satisfies Prisma.DeckFindManyArgs;
 
 export type DeckWithCards = Prisma.DeckGetPayload<typeof deckWithCardsArgs>;
+
+const cardWithContentsArgs = {
+  include: {
+    contents: {
+      include: { japanVocab: true },
+    },
+  },
+} satisfies Prisma.CardFindManyArgs;
+
+export type CardWithContents = Prisma.CardGetPayload<typeof cardWithContentsArgs>;
 
 export function toMockDeck(deckIncludeCards: DeckWithCards) {
   const now = new Date();
 
   const total = deckIncludeCards.cards.length;
 
-  const done = deckIncludeCards.cards.filter(
+  const doneCards = deckIncludeCards.cards.filter(
     (card: Card) => card.state !== State.New,
   ).length;
 
@@ -45,36 +63,15 @@ export function toMockDeck(deckIncludeCards: DeckWithCards) {
       : 1;
 
   return {
-    id: deckIncludeCards.id,
-    title: deckIncludeCards.title,
-    description: deckIncludeCards.description ?? "",
+    ...deckIncludeCards,
     total,
-    doneCards: done,
+    doneCards,
     due,
     newCount,
     learning,
     review,
     relearning,
     retention,
-    createdAt: deckIncludeCards.createdAt,
-    updatedAt: deckIncludeCards.updatedAt,
-    cards: deckIncludeCards.cards.map((card: Card) => ({
-      id: card.id,
-      front: card.front,
-      back: card.back,
-      state: card.state,
-      stability: card.stability,
-      difficulty: card.difficulty,
-      repetitions: card.repetitions,
-      lapses: card.lapses,
-      scheduledDays: card.scheduledDays,
-      learningSteps: card.learningSteps,
-      nextReview: card.nextReview,
-      lastReviewed: card.lastReviewed ? card.lastReviewed : null,
-      createdAt: card.createdAt,
-      updatedAt: card.updatedAt,
-      deckId: card.deckId,
-    })),
   };
 }
 

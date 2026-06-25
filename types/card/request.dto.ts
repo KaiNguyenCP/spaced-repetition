@@ -22,3 +22,11 @@ export const ReviewCardSchema = z.object({
 export type CreateCardBody = z.infer<typeof CreateCardSchema>;
 export type UpdateCardBody = z.infer<typeof UpdateCardSchema>;
 export type ReviewCardBody = z.infer<typeof ReviewCardSchema>;
+
+export type JapanVocabDto = {
+  vocabulary: string;
+  chineseCharacters?: string;
+  sinoPronunciation?: string;
+  audioUrl?: string;
+  mean: string;
+};

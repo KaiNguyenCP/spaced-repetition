@@ -51,3 +51,13 @@ export type Deck = Prisma.DeckModel
  * 
  */
 export type Card = Prisma.CardModel
+/**
+ * Model Content
+ * 
+ */
+export type Content = Prisma.ContentModel
+/**
+ * Model JapanVocab
+ * 
+ */
+export type JapanVocab = Prisma.JapanVocabModel

@@ -8,20 +8,19 @@ datasource db {
 }
 
 model Deck {
-  id          String   @id() @default(uuid(7)) @db.Uuid
+  id          String     @id() @default(uuid(7)) @db.Uuid
   title       String
   description String?
+  sourceType  SourceType @default(NORMAL)
   cards       Card[]
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
 
   @@map("decks")
 }
 
 model Card {
   id            String    @id() @default(uuid(7)) @db.Uuid
-  front         String
-  back          String
   stability     Float     @default(0.0)
   difficulty    Float     @default(0.0)
   state         Int       @default(0)
@@ -32,10 +31,49 @@ model Card {
   nextReview    DateTime  @default(now()) @map("next_review")
   lastReviewed  DateTime? @map("last_reviewed")
   deckId        String    @map("deck_id") @db.Uuid
+  contents      Content[]
   deck          Deck      @relation(fields: [deckId], references: [id], onDelete: Cascade)
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
 
   @@index([nextReview])
   @@map("cards")
+}
+
+model Content {
+  id          String      @id() @default(uuid(7)) @db.Uuid
+  front       String?
+  back        String?
+  urlDocument String?     @map("url_document")
+  cardId      String      @map("card_id") @db.Uuid
+  card        Card        @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  japanVocab  JapanVocab?
+
+  @@index([cardId])
+  @@map("contents")
+}
+
+model JapanVocab {
+  id                String   @id() @default(uuid(7)) @db.Uuid
+  vocabulary        String
+  chineseCharacters String?  @map("chinese_characters")
+  sinoPronunciation String?  @map("sino_pronunciation")
+  audioUrl          String?  @map("audio_url")
+  mean              String
+  contentId         String   @unique @map("content_id") @db.Uuid
+  content           Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@index([contentId])
+  @@map("japan_vocab")
+}
+
+enum SourceType {
+  JAPANESE @map("japanese")
+  NORMAL   @map("normal")
+
+  @@map("source_type")
 }

@@ -16,8 +16,6 @@ export const UpdateCardWrapper = ({
     }
     setCardUpdated({
       id: result.data.id,
-      front: result.data.front,
-      back: result.data.back,
       state: result.data.state,
       stability: result.data.stability,
       difficulty: result.data.difficulty,
@@ -30,6 +28,7 @@ export const UpdateCardWrapper = ({
       updatedAt: result.data.updatedAt,
       deckId: result.data.deckId,
       learningSteps: result.data.learningSteps,
+      contents: result.data.contents,
     });
 
     return result;

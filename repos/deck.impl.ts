@@ -22,7 +22,13 @@ export const DeckRepo = {
     const deck = await prisma.deck.findUnique({
       where: { id },
       include: {
-        cards: true,
+        cards: {
+          include: {
+            contents: {
+              include: { japanVocab: true },
+            },
+          },
+        },
       },
     });
 
@@ -52,12 +58,17 @@ export const DeckRepo = {
 
   getDueList: async (id: string) => {
     return prisma.deck.findUnique({
-      where: {id},
+      where: { id },
       include: {
         cards: {
           where: {
             nextReview: {
               lte: new Date(),
+            },
+          },
+          include: {
+            contents: {
+              include: { japanVocab: true },
             },
           },
           orderBy: {

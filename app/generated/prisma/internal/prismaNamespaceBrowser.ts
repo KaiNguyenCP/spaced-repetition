@@ -52,7 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Deck: 'Deck',
-  Card: 'Card'
+  Card: 'Card',
+  Content: 'Content',
+  JapanVocab: 'JapanVocab'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -75,6 +77,7 @@ export const DeckScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  sourceType: 'sourceType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -84,8 +87,6 @@ export type DeckScalarFieldEnum = (typeof DeckScalarFieldEnum)[keyof typeof Deck
 
 export const CardScalarFieldEnum = {
   id: 'id',
-  front: 'front',
-  back: 'back',
   stability: 'stability',
   difficulty: 'difficulty',
   state: 'state',
@@ -101,6 +102,34 @@ export const CardScalarFieldEnum = {
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+export const ContentScalarFieldEnum = {
+  id: 'id',
+  front: 'front',
+  back: 'back',
+  urlDocument: 'urlDocument',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContentScalarFieldEnum = (typeof ContentScalarFieldEnum)[keyof typeof ContentScalarFieldEnum]
+
+
+export const JapanVocabScalarFieldEnum = {
+  id: 'id',
+  vocabulary: 'vocabulary',
+  chineseCharacters: 'chineseCharacters',
+  sinoPronunciation: 'sinoPronunciation',
+  audioUrl: 'audioUrl',
+  mean: 'mean',
+  contentId: 'contentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JapanVocabScalarFieldEnum = (typeof JapanVocabScalarFieldEnum)[keyof typeof JapanVocabScalarFieldEnum]
 
 
 export const SortOrder = {

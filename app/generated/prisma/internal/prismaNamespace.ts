@@ -385,7 +385,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Deck: 'Deck',
-  Card: 'Card'
+  Card: 'Card',
+  Content: 'Content',
+  JapanVocab: 'JapanVocab'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "deck" | "card"
+    modelProps: "deck" | "card" | "content" | "japanVocab"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +555,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Content: {
+      payload: Prisma.$ContentPayload<ExtArgs>
+      fields: Prisma.ContentFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ContentFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ContentFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>
+        }
+        findFirst: {
+          args: Prisma.ContentFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ContentFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>
+        }
+        findMany: {
+          args: Prisma.ContentFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>[]
+        }
+        create: {
+          args: Prisma.ContentCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>
+        }
+        createMany: {
+          args: Prisma.ContentCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ContentCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>[]
+        }
+        delete: {
+          args: Prisma.ContentDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>
+        }
+        update: {
+          args: Prisma.ContentUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>
+        }
+        deleteMany: {
+          args: Prisma.ContentDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ContentUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ContentUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>[]
+        }
+        upsert: {
+          args: Prisma.ContentUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ContentPayload>
+        }
+        aggregate: {
+          args: Prisma.ContentAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateContent>
+        }
+        groupBy: {
+          args: Prisma.ContentGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ContentCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ContentCountAggregateOutputType> | number
+        }
+      }
+    }
+    JapanVocab: {
+      payload: Prisma.$JapanVocabPayload<ExtArgs>
+      fields: Prisma.JapanVocabFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JapanVocabFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JapanVocabFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>
+        }
+        findFirst: {
+          args: Prisma.JapanVocabFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JapanVocabFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>
+        }
+        findMany: {
+          args: Prisma.JapanVocabFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>[]
+        }
+        create: {
+          args: Prisma.JapanVocabCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>
+        }
+        createMany: {
+          args: Prisma.JapanVocabCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JapanVocabCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>[]
+        }
+        delete: {
+          args: Prisma.JapanVocabDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>
+        }
+        update: {
+          args: Prisma.JapanVocabUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>
+        }
+        deleteMany: {
+          args: Prisma.JapanVocabDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JapanVocabUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JapanVocabUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>[]
+        }
+        upsert: {
+          args: Prisma.JapanVocabUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JapanVocabPayload>
+        }
+        aggregate: {
+          args: Prisma.JapanVocabAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJapanVocab>
+        }
+        groupBy: {
+          args: Prisma.JapanVocabGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JapanVocabGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JapanVocabCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JapanVocabCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -596,6 +746,7 @@ export const DeckScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  sourceType: 'sourceType',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -605,8 +756,6 @@ export type DeckScalarFieldEnum = (typeof DeckScalarFieldEnum)[keyof typeof Deck
 
 export const CardScalarFieldEnum = {
   id: 'id',
-  front: 'front',
-  back: 'back',
   stability: 'stability',
   difficulty: 'difficulty',
   state: 'state',
@@ -622,6 +771,34 @@ export const CardScalarFieldEnum = {
 } as const
 
 export type CardScalarFieldEnum = (typeof CardScalarFieldEnum)[keyof typeof CardScalarFieldEnum]
+
+
+export const ContentScalarFieldEnum = {
+  id: 'id',
+  front: 'front',
+  back: 'back',
+  urlDocument: 'urlDocument',
+  cardId: 'cardId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContentScalarFieldEnum = (typeof ContentScalarFieldEnum)[keyof typeof ContentScalarFieldEnum]
+
+
+export const JapanVocabScalarFieldEnum = {
+  id: 'id',
+  vocabulary: 'vocabulary',
+  chineseCharacters: 'chineseCharacters',
+  sinoPronunciation: 'sinoPronunciation',
+  audioUrl: 'audioUrl',
+  mean: 'mean',
+  contentId: 'contentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JapanVocabScalarFieldEnum = (typeof JapanVocabScalarFieldEnum)[keyof typeof JapanVocabScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -665,6 +842,20 @@ export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 
  * Reference to a field of type 'String[]'
  */
 export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+/**
+ * Reference to a field of type 'SourceType'
+ */
+export type EnumSourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SourceType'>
+    
+
+
+/**
+ * Reference to a field of type 'SourceType[]'
+ */
+export type ListEnumSourceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SourceType[]'>
     
 
 
@@ -806,6 +997,8 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   deck?: Prisma.DeckOmit
   card?: Prisma.CardOmit
+  content?: Prisma.ContentOmit
+  japanVocab?: Prisma.JapanVocabOmit
 }
 
 /* Types for Logging */

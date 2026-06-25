@@ -1,5 +1,6 @@
 import { Deck } from "@/app/generated/prisma/client";
-import { MockCard, MockDeck } from "@/lib";
+import { MockDeck } from "@/lib";
+import { CardWithContents } from "@/mapper/deck.mapper";
 import { CreateCardBody, UpdateCardBody } from "@/types/card";
 import { Layers } from "lucide-react";
 
@@ -46,7 +47,7 @@ export type ToolbarProps = {
 };
 
 export type CardFormProps = {
-  initialData?: MockCard;
+  initialData?: CardWithContents;
   deckId: string;
   onCancel: () => void;
   onSubmit: (
@@ -65,20 +66,24 @@ export type CreateCardFormProps = {
 export type CardsTableProps = {
   setPreviewAction: (value: boolean) => void;
   deck: MockDeck;
-  setCurrentCardPreview: (card: MockCard | null) => void;
+  setCurrentCardPreview: (card: CardWithContents | null) => void;
 };
 
 export type PreviewCardProps = {
-  card: MockCard | null;
+  card: CardWithContents | null;
   isOpen: boolean;
   isEditCard: boolean;
   onEditCard: (value: boolean) => void;
   onClose: (value: boolean) => void;
-  setCardUpdated: (card: MockCard) => void;
+  setCardUpdated: (card: CardWithContents) => void;
 };
 
 export type UpdateCardWrapperProps = {
   setUpdateAction: (value: boolean) => void;
-  setCardUpdated: (card: MockCard) => void;
-  card: MockCard;
+  setCardUpdated: (card: CardWithContents) => void;
+  card: CardWithContents;
+};
+
+export type SearchAndFilterProps = {
+  setJPImportAction: (value: boolean) => void;
 };

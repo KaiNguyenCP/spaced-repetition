@@ -1,4 +1,5 @@
-import { MockCard, MockDeck } from "@/lib";
+import { MockDeck } from "@/lib";
+import { CardWithContents } from "@/mapper/deck.mapper";
 import { Grade } from "ts-fsrs";
 
 export type TopBarProps = {
@@ -14,22 +15,22 @@ export type StudyClientProps = {
 };
 
 export type StudyDueClientProps = {
-  cards: MockCard[];
+  cards: CardWithContents[];
 };
 
 export type CardViewProps = {
-  card: MockCard | null;
+  card: CardWithContents | null;
   showAnswer: boolean;
 };
 
 export type CardAreaProps = {
-  currentCard: MockCard | undefined;
+  currentCard: CardWithContents | undefined;
   isFinished: boolean;
   onNext: () => void;
 };
 export type RatingButtonProps = {
   onRate: (rating: Grade) => void;
-  card: MockCard;
+  card: CardWithContents;
 };
 
 export type CountsRowProps = {

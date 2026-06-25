@@ -11,8 +11,8 @@ export const CardForm = ({
   submittingLabel = "Creating...",
   formTitle = "Create new Card",
 }: CardFormProps) => {
-  const [front, setFront] = useState(initialData?.front || "");
-  const [back, setBack] = useState(initialData?.back || "");
+  const [front, setFront] = useState(initialData?.contents[0].front || "");
+  const [back, setBack] = useState(initialData?.contents[0].back || "");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: SubmitEvent) => {

@@ -26,6 +26,11 @@ export const CardRepo = {
       where: {
         nextReview: { lte: new Date() },
       },
+      include: {
+        contents: {
+          include: { japanVocab: true },
+        },
+      },
       orderBy: { nextReview: "asc" },
     });
     return cards;
@@ -36,7 +41,15 @@ export const CardRepo = {
   },
 
   update: async (id: string, data: UpdateCardBody) => {
-    return prisma.card.update({ where: { id }, data });
+    return prisma.card.update({
+      where: { id },
+      data,
+      include: {
+        contents: {
+          include: { japanVocab: true },
+        },
+      },
+    });
   },
 
   updateReview: async (id: string, data: Prisma.CardUpdateInput) => {
